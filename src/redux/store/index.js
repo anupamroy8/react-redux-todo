@@ -1,5 +1,5 @@
 import { createStore } from "redux";
-import { INCREMENT, DECREMENT, RESET } from "./types";
+import { INCREMENT, DECREMENT, RESET } from "../actions/types";
 
 const initialState = {
   count: 1000,
