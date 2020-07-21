@@ -1,37 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 
-class Todo extends React.Component {
-  state = {
-    text: "",
-  };
+import { addTodo, removeTodo, toggleTodo } from "../redux/actions";
 
-  setText = (text) => {
-    this.setState({ text });
-  };
-  submit = (e) => {
+const Todo = (props) => {
+  const [text, setText] = useState("");
+  const { todos } = props;
+
+  const submit = (e) => {
     e.preventDefault();
     setText("");
     props.dispatch(addTodo(text));
   };
+  return (
+    <div>
+      <form onSubmit={submit}>
+        <input
+          type="text"
+          value={text}
+          onChange={({ target: { value } }) => setText(value)}
+        />
+      </form>
+      <ul>
+        {todos.map((todo, i) => (
+          <li key={i}>
+            <input
+              type="checkbox"
+              checked={todo.isdone}
+              onClick={() => props.dispatch(toggleTodo(todo.id))}
+            />
+            <p>{todo.text}</p>
+            <button onClick={() => props.dispatch(removeTodo(todo.id))}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+const mapStateToProps = ({ todos }) => {
+  return {
+    todos,
+  };
+};
 
-  render() {
-    return (
-      <div className="App">
-        <form onSubmit={submit}>
-          <input
-            type="text"
-            value={text}
-            onChange={({ target: { value } }) => setText(value)}
-          />
-        </form>
-      </div>
-    );
-  }
-}
-
-function mapState(state) {
-  return state;
-}
-
-export default connect(mapState)(Todo);
+export default connect(mapStateToProps)(Todo);
