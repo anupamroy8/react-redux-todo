@@ -1,10 +1,14 @@
-.App{
+.todo-app {
   margin: 0 auto;
   max-width: 1200px;
   text-align: center;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.input-todo {
+  width: 50% !important;
 }
